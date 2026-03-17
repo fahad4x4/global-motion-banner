@@ -845,12 +845,42 @@ function gmb_render_edit_form(array $b) {
 
     // ── Browse file picker (uses GS built-in file browser) ──────────────────
     function gmbBrowse(fieldId) {
-        window.open(
-            'filebrowser.php?type=images&returnid=' + fieldId,
-            'filebrowser',
-            'width=730,height=500,scrollbars=yes,resizable=yes'
-        );
+    window._gmbTarget = fieldId;
+
+    
+    var funcNum;
+    if (typeof CKEDITOR !== 'undefined' && CKEDITOR.tools && CKEDITOR.tools.addFunction) {
+        funcNum = CKEDITOR.tools.addFunction(function(url) {
+            var el = document.getElementById(window._gmbTarget);
+            if (el) {
+                el.value = url;
+                el.dispatchEvent(new Event('input')); // تحديث المعاينة
+                gmbUpdatePreview();
+            }
+        });
+    } else {
+        window.CKEDITOR = window.CKEDITOR || {};
+        CKEDITOR.tools = CKEDITOR.tools || { _funcs: {}, _cnt: 0 };
+        funcNum = ++CKEDITOR.tools._cnt;
+        CKEDITOR.tools._funcs[funcNum] = function(url) {
+            var el = document.getElementById(window._gmbTarget);
+            if (el) {
+                el.value = url;
+                el.dispatchEvent(new Event('input'));
+                gmbUpdatePreview();
+            }
+        };
+        CKEDITOR.tools.callFunction = function(n, url) {
+            if (CKEDITOR.tools._funcs[n]) CKEDITOR.tools._funcs[n](url);
+        };
     }
+
+    window.open(
+        'filebrowser.php?type=images&CKEditorFuncNum=' + funcNum,
+        'gmbFileBrowser',
+        'width=730,height=500,scrollbars=yes,resizable=yes'
+    );
+}
 
     // ── Switch type ──────────────────────────────────────────────────────────
     function gmbSwitchType(type) {
