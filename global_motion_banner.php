@@ -1066,7 +1066,8 @@ function gmb_render_banner(array $b) {
     $dir         = ($b['dir'] === 'left') ? 'left' : 'right';
     list($from, $to) = ($dir === 'right') ? array('100vw', '-100%') : array('-100%', '100vw');
 
-    $dismiss_key = 'gmb_' . md5($b['text'] . '|' . $b['bg_color'] . '|' . $b['content_img'] . '|' . GMB_VERSION . '|' . $id);
+    // Content-based only: a plugin update must not bring back banners visitors already closed.
+    $dismiss_key = 'gmb_' . md5($b['text'] . '|' . $b['fade_messages'] . '|' . $b['slider_messages'] . '|' . $b['bg_color'] . '|' . $b['content_img'] . '|' . $id);
 
     $fade_msgs   = array_values(array_filter(array_map('trim', explode('||', $b['fade_messages']))));
     $slider_msgs = array_values(array_filter(array_map('trim', explode('||', $b['slider_messages']))));

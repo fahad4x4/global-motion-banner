@@ -117,6 +117,7 @@ data/other/
 #### v2.2
 - **📁 Browse** buttons now return the chosen file through GetSimple's file browser callback, so the image field and live preview update.
 - Fixed a duplicate `class` attribute on the close-button options.
+- The dismiss key no longer includes the plugin version, so updating the plugin won't show closed banners again. It now also changes when fade or slider messages change.
 
 #### v2.1
 - CSRF nonce switched from PHP sessions to an HMAC token based on `GSKEY`.
@@ -258,6 +259,7 @@ data/other/
 #### الإصدار 2.2
 - أزرار **📁 Browse** تعيد الملف المختار عبر متصفح ملفات GetSimple، فيتحدّث حقل الصورة والمعاينة الحيّة.
 - إصلاح تكرار خاصية `class` في خيارات زر الإغلاق.
+- مفتاح الإغلاق لم يعد يعتمد على رقم الإصدار، فتحديث الإضافة لا يُرجع الشرائط التي أغلقها الزوار. وصار يتغيّر أيضًا عند تعديل رسائل التلاشي أو الشرائح.
 
 #### الإصدار 2.1
 - استبدال رمز التحقق المعتمد على جلسات PHP برمز HMAC مبني على `GSKEY`.
