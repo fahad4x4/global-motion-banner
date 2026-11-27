@@ -12,7 +12,7 @@ if (!defined('IN_GS')) { die('you cannot load this page directly.'); }
 // ────────────────────────────────────────────────────────────────────────────
 // Constants
 // ────────────────────────────────────────────────────────────────────────────
-define('GMB_ID',      'simple_welcome');
+define('GMB_ID',      'global_motion_banner');
 define('GMB_XML',     GSDATAOTHERPATH . 'global_motion_banners.xml');
 define('GMB_VERSION', '2.1');
 
