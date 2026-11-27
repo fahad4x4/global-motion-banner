@@ -15,6 +15,7 @@ if (!defined('IN_GS')) { die('you cannot load this page directly.'); }
 define('GMB_ID',      'global_motion_banner');
 define('GMB_XML',     GSDATAOTHERPATH . 'global_motion_banners.xml');
 define('GMB_VERSION', '2.2');
+define('GMB_SECRET',  GSDATAOTHERPATH . 'global_motion_banner_secret.php');
 
 // ────────────────────────────────────────────────────────────────────────────
 // Validation Helpers
@@ -53,14 +54,44 @@ function gmb_out($val) {
 
 // ────────────────────────────────────────────────────────────────────────────
 // Nonce — بدون session، يعتمد على GSKEY مثل باقي إضافات GS
+// When GSKEY is undefined, a random per-install secret is generated once
+// and stored in data/other/ (a .php file that dies if requested directly).
 // ────────────────────────────────────────────────────────────────────────────
+function gmb_install_secret() {
+    static $secret = null;
+    if ($secret !== null) return $secret;
+    $read = function() {
+        if (!is_file(GMB_SECRET)) return '';
+        $raw = (string)@file_get_contents(GMB_SECRET);
+        return preg_match('/\b([0-9a-f]{64})\b/', $raw, $m) ? $m[1] : '';
+    };
+    $found = $read();
+    if ($found === '') {
+        // 'x' mode: only the first request creates the file; others re-read it.
+        $fp = @fopen(GMB_SECRET, 'x');
+        if ($fp) {
+            fwrite($fp, "<?php die(); ?>\n" . bin2hex(random_bytes(32)) . "\n");
+            fclose($fp);
+            @chmod(GMB_SECRET, 0600);
+        }
+        $found = $read();
+    }
+    // Empty string = no usable secret; gmb_verify_nonce then fails closed.
+    $secret = $found;
+    return $secret;
+}
+function gmb_nonce_secret() {
+    return defined('GSKEY') ? (string)GSKEY : gmb_install_secret();
+}
 function gmb_create_nonce() {
-    $secret = defined('GSKEY') ? GSKEY : md5(__FILE__);
+    $secret = gmb_nonce_secret();
+    if ($secret === '') return '';
     return hash_hmac('sha256', 'gmb_' . date('YmdH'), $secret);
 }
 function gmb_verify_nonce($token) {
     if (!defined('IN_GS')) return false;
-    $secret  = defined('GSKEY') ? GSKEY : md5(__FILE__);
+    $secret  = gmb_nonce_secret();
+    if ($secret === '') return false;
     $current = hash_hmac('sha256', 'gmb_' . date('YmdH'), $secret);
     $prev    = hash_hmac('sha256', 'gmb_' . date('YmdH', strtotime('-1 hour')), $secret);
     return hash_equals($current, (string)$token)

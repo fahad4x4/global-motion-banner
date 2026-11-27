@@ -109,10 +109,14 @@ Data created on your site:
 
 ```
 data/other/
-└── global_motion_banners.xml  ← created automatically on first save
+├── global_motion_banners.xml         ← created automatically on first save
+└── global_motion_banner_secret.php   ← nonce secret, only when GSKEY is not defined
 ```
 
 ### Changelog
+
+#### Unreleased
+- When `GSKEY` is not defined, the CSRF nonce now uses a random per-install secret (generated once with `random_bytes()` and stored in `data/other/global_motion_banner_secret.php`) instead of the predictable `md5(__FILE__)`.
 
 #### v2.2
 - **📁 Browse** buttons now return the chosen file through GetSimple's file browser callback, so the image field and live preview update.
@@ -251,10 +255,14 @@ global-motion-banner/
 
 ```
 data/other/
-└── global_motion_banners.xml  ← يُنشأ تلقائيًا عند أول حفظ
+├── global_motion_banners.xml         ← يُنشأ تلقائيًا عند أول حفظ
+└── global_motion_banner_secret.php   ← سرّ رمز التحقق، فقط عند عدم تعريف GSKEY
 ```
 
 ### سجل التغييرات
+
+#### غير منشور بعد
+- عند عدم تعريف `GSKEY`، يستخدم رمز التحقق CSRF الآن سرًّا عشوائيًا خاصًا بكل تثبيت (يُولَّد مرة واحدة عبر `random_bytes()` ويُحفظ في `data/other/global_motion_banner_secret.php`) بدلًا من `md5(__FILE__)` القابل للتخمين.
 
 #### الإصدار 2.2
 - أزرار **📁 Browse** تعيد الملف المختار عبر متصفح ملفات GetSimple، فيتحدّث حقل الصورة والمعاينة الحيّة.
