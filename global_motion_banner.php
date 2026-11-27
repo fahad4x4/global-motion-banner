@@ -771,7 +771,7 @@ function gmb_render_edit_form(array $b) {
                             <span class="gmb-toggle-label" id="gmb-closeable-lbl"><?php echo $b['closeable']==='1'?'Enabled':'Disabled'; ?></span>
                         </label>
                     </div>
-                    <div class="gmb-field" id="gmb-close-dur" <?php echo $b['closeable']!=='1'?'class="gmb-disabled"':''; ?>>
+                    <div class="gmb-field<?php echo $b['closeable']!=='1'?' gmb-disabled':''; ?>" id="gmb-close-dur">
                         <label>Hide Duration After Close</label>
                         <select name="close_duration">
                             <option value="session" <?php echo $b['close_duration']==='session'?'selected':''; ?>>Until browser closed</option>
@@ -781,7 +781,7 @@ function gmb_render_edit_form(array $b) {
                             <option value="forever" <?php echo $b['close_duration']==='forever'?'selected':''; ?>>Forever</option>
                         </select>
                     </div>
-                    <div class="gmb-field" id="gmb-close-sty" <?php echo $b['closeable']!=='1'?'class="gmb-disabled"':''; ?>>
+                    <div class="gmb-field<?php echo $b['closeable']!=='1'?' gmb-disabled':''; ?>" id="gmb-close-sty">
                         <label>Button Style</label>
                         <select name="close_btn_style">
                             <option value="circle" <?php echo $b['close_btn_style']==='circle'?'selected':''; ?>>Circle</option>
