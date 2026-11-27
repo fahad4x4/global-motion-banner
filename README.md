@@ -2,7 +2,7 @@
 
 > A multi-type banner plugin for **GetSimple CMS**: show announcements, promotions, and alerts with control over style, motion, page targeting, and scheduling.
 
-![Version](https://img.shields.io/badge/version-2.1-blue)
+![Version](https://img.shields.io/badge/version-2.2-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![GetSimple](https://img.shields.io/badge/GetSimple-3.3.x-orange)
 ![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4?logo=php&logoColor=white)
@@ -114,11 +114,14 @@ data/other/
 
 ### Changelog
 
+#### v2.2
+- **📁 Browse** buttons now return the chosen file through GetSimple's file browser callback, so the image field and live preview update.
+- Fixed a duplicate `class` attribute on the close-button options.
+
 #### v2.1
 - CSRF nonce switched from PHP sessions to an HMAC token based on `GSKEY`.
 - **📁 Browse** buttons for the background and content images, using GetSimple's file browser.
 - Flatter, simpler admin interface.
-- Fixed a duplicate `class` attribute on the close-button options.
 
 #### v2.0
 - Complete rewrite with multi-banner support.
@@ -252,11 +255,14 @@ data/other/
 
 ### سجل التغييرات
 
+#### الإصدار 2.2
+- أزرار **📁 Browse** تعيد الملف المختار عبر متصفح ملفات GetSimple، فيتحدّث حقل الصورة والمعاينة الحيّة.
+- إصلاح تكرار خاصية `class` في خيارات زر الإغلاق.
+
 #### الإصدار 2.1
 - استبدال رمز التحقق المعتمد على جلسات PHP برمز HMAC مبني على `GSKEY`.
 - إضافة أزرار **📁 Browse** لصورتي الخلفية والمحتوى باستخدام متصفح ملفات GetSimple.
 - واجهة إدارة أبسط بتصميم مسطّح.
-- إصلاح تكرار خاصية `class` في خيارات زر الإغلاق.
 
 #### الإصدار 2.0
 - إعادة كتابة كاملة مع دعم الشرائط المتعددة.

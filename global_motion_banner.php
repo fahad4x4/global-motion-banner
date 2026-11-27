@@ -2,7 +2,7 @@
 /*
 Plugin Name: Global Motion Banner
 Description: Multi-type animated banners — marquee, static, fade, slider, sticky — with page targeting, scheduling, and visitor dismiss support.
-Version: 2.1
+Version: 2.2
 Author: Fahad4x4
 Author URI: https://github.com/fahad4x4
 */
@@ -14,7 +14,7 @@ if (!defined('IN_GS')) { die('you cannot load this page directly.'); }
 // ────────────────────────────────────────────────────────────────────────────
 define('GMB_ID',      'global_motion_banner');
 define('GMB_XML',     GSDATAOTHERPATH . 'global_motion_banners.xml');
-define('GMB_VERSION', '2.1');
+define('GMB_VERSION', '2.2');
 
 // ────────────────────────────────────────────────────────────────────────────
 // Validation Helpers
